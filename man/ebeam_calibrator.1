@@ -1,0 +1,96 @@
+.\" 
+.TH "ebeam_calibrator" "1" "" "Yann Cantin" ""
+.SH "NAME"
+ebeam_calibrator \- ebeam calibration program for X.Org
+
+.SH "SYNOPSIS"
+.B ebeam_calibrator [OPTIONS]
+.SH "DESCRIPTION"
+ebeam_calibrator is a program for calibrating your ebeam device, when using the native ebeam kernel module and X Window System.
+.PP 
+It currently features:
+.br 
+\- works for any ebeam kernel driver supported devices
+.br 
+\- mis\-click detection (prevents bogus calibration)
+.br 
+\- active zone definition
+.br 
+\- dynamically recalibrates the kernel driver and the X evdev driver
+.br 
+.PP 
+see https://sourceforge.net/p/ebeam
+
+.SH "OPTIONS"
+.TP 8
+.B \-h, \-\-help
+Print a help message listing the version and available options.
+.PP 
+.TP 8
+.B \-v, \-\-verbose
+Print debug messages during the process.
+.PP 
+.TP 8
+.B \-\-list
+List the ebeam input devices.
+.PP 
+.TP 8
+.B \-\-device \fIdevice_name_or_id\fP
+Select a specific ebeam device to calibrate;
+use \-\-list to list the ebeam input devices.
+.PP 
+.TP 8
+.B \-\-zone \fImin_x min_y max_x max_y\fP
+Define the active zone (default: full screen).
+.PP 
+.TP 8
+.B \-\-precision \fInr of digit\fP
+How many digits are kept for screen coordinates computation (default: 12).
+.PP 
+.TP 8
+.B \-\-threshold \fInr\fP
+Set the misclick threshold (0=off, default: 16)
+
+.SH "USAGE"
+Run ebeam_calibrator and click the 4 calibration points.
+.br 
+ebeam_calibrator will tell you if the calibration process went well and after a final click, will update the kernel driver and X evdev driver's calibration data. Your ebeam device is ready to use.
+
+.SH "EXAMPLES"
+To run the calibrator, type in your terminal:
+.LP 
+    ebeam_calibrator
+.PP 
+To run the calibrator for device 11, only active on the right half of a 1280x1024 screen, type in your terminal:
+.LP 
+    ebeam_calibrator --device 11 --zone 640 0 1279 1023
+      Reminder : pixel coordinates starts at (0;0) top-left.
+.PP 
+If something goes wrong, or not as expected, turn on verbose messages:
+.LP 
+    ebeam_calibrator \-v
+
+.SH "TROUBLESHOOTING"
+.B In general,
+Run the calibrator with the \fI\-v\fP option, it will tell you what happens and what goes wrong.
+
+.B Mis\-click detection:
+The calibrator can automatically detect double clicks on the same point. This prevents you from ending up with a bogus calibration.
+.br
+If one click validate 2 or more points in a row (ie the calibrator miss the double click), try to increase the threshold value.
+
+.B Precision:
+Screen coordinates computation involve high-precision maths. The number of digits used don't impact computation time. More digits increase accuracy but can lead to overflow.
+.PP
+    \- If your screen pointer significantly shift from your ebeam position, especially on the border of the screen, the driver lack accuracy. You have to increase the precision's value.
+.PP
+    \- If your screen pointer jump around, the driver certainly overflow. You have to decrease the precision's value.
+.PP
+Don't go below 9 or above 14, unless you want to see a brain-dead pointer.
+
+.SH "SEE ALSO"
+ebeam_state(1)
+.SH "AUTHORS"
+.nf 
+Yann Cantin <yann.cantin@laposte.net>
+.fi 

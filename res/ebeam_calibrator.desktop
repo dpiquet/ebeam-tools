@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=ebeam_calibrator
+GenericName=eBeam device calibrator
+Comment=Calibration tool for ebeam devices
+Exec=ebeam_calibrator
+Terminal=false
+Type=Application
+Icon=ebeam_calibrator
+StartupNotify=false
+Categories=System;Settings;

@@ -1,0 +1,32 @@
+eBeam tools
+
+ebeam_calibrator is a program for calibrating your ebeam device, when using the
+native ebeam kernel module and X Window System.
+
+ebeam_state is a program for saving or restoring calibration data for a ebeam
+device, when using the native ebeam kernel module.
+
+Compilation and installation:
+
+Install the following devel packages, see your linux distribution's
+documentation.
+x11
+x11-proto
+xinput
+gnu gsl
+
+Unpack the ebeam_tools archive, enter the directory, and :
+
+./configure
+make
+make install
+
+Usage:
+
+Launch ebeam_calibrator, point the red targets in turn, et voila.
+
+You can save the current calibration data with :
+ebeam_state --save /path/to/your/file
+
+You can later restore the calibration data with
+ebeam_state --restore /path/to/your/file

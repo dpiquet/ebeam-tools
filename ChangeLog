@@ -1,0 +1,44 @@
+v0.2 :
+  one calibrator class
+  x11 gui only
+  find ebeam device and sysfs dir
+v0.3 :
+  xinput2 : device_id, XIevents
+v0.4 :
+  tuples
+v0.5 :
+  compute H matrix
+  precision option
+  test H matrix accuracy
+  apply_calibration : driver & evdev
+  save/restore cli
+v0.6 :
+  package name change -> ebeam_tools
+  cleanup
+v0.7
+  clean x11 shutdown (bool is_running)
+  final step : show calibration result in gui
+  packaging :
+  man pages
+  icon+desktop file for ebeam_calibrator
+  licence cleanup
+  fix rpmbuild warnings in calibrator.cpp
+
+v0.8
+  handle multiple ebeam device :
+    use "Device Node" XIProperty to retrieve eventXX
+    associated with each device, and use 
+    /sys/class/input/eventXX/device/device/ sysfs dir.
+    (XI code based on http://osdir.com/ml/commits.gnome/2011-11/msg00615.html)
+
+v0.9
+  add active zone option
+
+TODO :
+
+  kernel/x11 stage 2 "Buttons" ?
+
+  move LL, NUM_POINT to gui
+
+  Rhââââ : xinput input/test.c : get raw data without xi2 XI_RAW...
+         see http://www.clearchain.com/blog/posts/xinput-1-xinput-2-conversion-guide 

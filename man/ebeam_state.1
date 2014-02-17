@@ -1,0 +1,83 @@
+.\" 
+.TH "ebeam_state" "1" "" "Yann Cantin" ""
+.SH "NAME"
+ebeam_state \- command-line ebeam calibration save and restore program
+
+.SH "SYNOPSIS"
+.B ebeam_state -h, --help
+.br 
+.B ebeam_state [OPTION] --list
+.br 
+.B ebeam_state [OPTIONS] --save <file>
+.br 
+.B ebeam_state [OPTIONS] --restore <file>
+
+.SH "DESCRIPTION"
+ebeam_state is a program for saving or restoring calibration data for a ebeam device, when using the native ebeam kernel module.
+.PP 
+It currently features:
+.br 
+\- works for any ebeam kernel driver supported devices
+.br 
+\- dynamically recalibrates the kernel driver and the X evdev driver, restoring active zone (see below)
+.br 
+.PP 
+see https://sourceforge.net/p/ebeam
+
+.\"     fprintf(stderr, "Usage:\n");
+.\"     fprintf(stderr, "\t%s -h, --help: print this help message\n", cmd);
+.\"     fprintf(stderr, "\t%s [option] --list: "
+.\"                     "list calibratable input devices and quit.\n", cmd);
+.\"     fprintf(stderr, "\t%s [option] --save <file>: "
+.\"                     "save current calibration to file.\n", cmd);
+.\"     fprintf(stderr, "\t%s [option] --restore <file>: "
+.\"                     "restore calibration from file.\n", cmd);
+.\"     fprintf(stderr, "Options:\n");
+.\"     fprintf(stderr, "\t-v, --verbose: "
+.\"                     "print debug messages during the process.\n");
+.\"     fprintf(stderr, "\t--device <device name or id>: "
+.\"                     "select a specific device.\n");
+
+.SH "OPTIONS"
+.TP 8
+.B \-v, \-\-verbose
+Print debug messages during the process.
+.PP 
+.TP 8
+.B \-\-device \fIdevice_name_or_id\fP
+Select a specific ebeam device to calibrate;
+Use ebeam_state \-\-list to list the ebeam input devices.
+
+.SH "USAGE"
+Once the ebeam device is calibrated with ebeam_calibrator, use ebeam-state to store the calibration data to a file.
+.br 
+You can later (after a reboot for example) restore the previous calibration data.
+
+.SH "EXAMPLES"
+To save the current calibration data, type in your terminal:
+.LP 
+    ebeam_state \-\-save ~/ebeam.calib
+.PP 
+To restore calibration data:
+.LP 
+    ebeam_state \-\-restore ~/ebeam.calib
+
+.SH "TROUBLESHOOTING"
+.B Validity:
+The ebeam devices are designed to be movable. Calibration data are only valid for a precise location of the sensor. If you move it, even lightly, you'll have to redo the calibration with ebeam_calibrator.
+
+.B Active zone:
+Active zone is only relevant to the screen resolution at calibration time. If you change the screen resolution, you'll have to redo the calibration with ebeam_calibrator.
+
+.B In general,
+Run ebeam_state with the \fI\-v\fP option, it will tell you what happens and what goes wrong.
+
+.B Version:
+You should restore calibration data saved by the same version of ebeam_state.
+
+.SH "SEE ALSO"
+ebeam_calibrator(1)
+.SH "AUTHORS"
+.nf 
+Yann Cantin <yann.cantin@laposte.net>
+.fi 
